@@ -1,6 +1,6 @@
 {
   "name": "wizytowka",
-  "homepage": "https://Heixxx.github.io/wizytowka/",
+  "homepage": "https://Heixxx.github.io/Wizytowka/",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -9,10 +9,7 @@
     "build": "tsc && vite build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "preview": "vite preview",
-    "screenshots": "node scripts/screenshots.ts",
-    "screenshots:setup": "playwright install chromium",
-    "typecheck": "tsc"
+    "preview": "vite preview"
   },
   "dependencies": {
     "aos": "^2.3.4",
