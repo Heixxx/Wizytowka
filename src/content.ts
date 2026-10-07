@@ -124,7 +124,7 @@ export const projects: Project[] = [
     status: 'in-progress',
     progress: 65,
     description:
-      'Mój przyszły flagowiec. Strona zmniejszająca wagę zdjęć o ok. 70–80% i pozwalająca ukrywać informacje wewnątrz zdjęcia. Dzięki temu zdjęciami można zarządzać naprawdę wygodnie :))) PS Wszystkie zdjęcia w tym portfolio zostały skompresowane tym narzędziem.',
+      'Mój przyszły flagowiec. Strona zmniejszająca wagę zdjęć o ok. 30–80% i pozwalająca ukrywać informacje wewnątrz zdjęcia. Dzięki temu zdjęciami można zarządzać naprawdę wygodnie :).',
     tags: ['React'],
     view: 'gallery',
     images: ['pixio'],
