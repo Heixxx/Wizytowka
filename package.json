@@ -1,11 +1,14 @@
 {
   "name": "wizytowka",
+  "homepage": "https://Heixxx.github.io/wizytowka/",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "preview": "vite preview",
     "screenshots": "node scripts/screenshots.ts",
     "screenshots:setup": "playwright install chromium",
