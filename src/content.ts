@@ -84,7 +84,7 @@ export const projects: Project[] = [
     view: 'gallery',
     images: ['dental-implant'],
     pageUrl: '',
-    // pageImage: 'strony/rezerwacje.svg',
+    // pageImage: 'strony/ .svg',
     demo: 'https://dentalimplantacademy.pl',
     // repo: 'https://github.com/',
   },
