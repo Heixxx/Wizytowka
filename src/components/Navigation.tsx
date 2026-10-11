@@ -39,6 +39,11 @@ export default function Navigation() {
                     className="nav__link"
                     href={`#${link.id}`}
                     aria-current={active === link.id ? 'true' : undefined}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      const element = document.getElementById(link.id)
+                      element?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                    }}
                   >
                     {link.label}
                   </a>
