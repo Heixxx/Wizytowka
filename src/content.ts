@@ -9,7 +9,7 @@ const location = 'Rzeszów, praca zdalna lub hybrydowa'
 
 export const profile: Profile = {
   name: 'Adrian Lidwin',
-  role: 'Fullstack Developer',
+  role: 'React Developer (WCAG 2.1)',
   headline: 'Projektuję, analizuję, tworzę szkolenia, programuję, optymalizuję oraz szukam nowych rozwiązań.',
   tagline: 'Tworzenie ciekawych rozwiązań :)',
   email: 'adrian3981x[]gmail.com',
@@ -24,10 +24,10 @@ export const profile: Profile = {
   details: [
     { label: 'Lokalizacja', value: location },
     { label: 'Doświadczenie', value: '2 lata' },
-    { label: 'Specjalizacja', value: 'frontend, Linux (od 2026)' },
+    { label: 'Specjalizacja', value: 'frontend, Linux (od 2026), WCAG 2.1' },
     { label: 'Języki', value: 'polski, angielski, (w wolnych chwilach) japoński' },
   ],
-  stack: ['React', 'TypeScript', 'Django - podstawy', 'Unity', 'Tailwind CSS', 'PostgreSQL', 'Linux', 'Raspberry Pi'],
+  stack: ['React', 'TypeScript', 'Django - podstawy', 'Unity', 'Tailwind CSS', 'PostgreSQL', 'Linux', 'Raspberry Pi', 'WCAG 2.1', 'VITE', 'SCSS'],
 }
 
 export const projects: Project[] = [
