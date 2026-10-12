@@ -24,10 +24,10 @@ export const profile: Profile = {
   details: [
     { label: 'Lokalizacja', value: location },
     { label: 'Doświadczenie', value: '2 lata' },
-    { label: 'Specjalizacja', value: 'frontend, backend (Django od 2026), Linux (od 2026)' },
+    { label: 'Specjalizacja', value: 'frontend, Linux (od 2026)' },
     { label: 'Języki', value: 'polski, angielski, (w wolnych chwilach) japoński' },
   ],
-  stack: ['React', 'TypeScript', 'Django', 'Unity', 'Tailwind CSS', 'PostgreSQL', 'Linux', 'Raspberry Pi'],
+  stack: ['React', 'TypeScript', 'Django - podstawy', 'Unity', 'Tailwind CSS', 'PostgreSQL', 'Linux', 'Raspberry Pi'],
 }
 
 export const projects: Project[] = [
