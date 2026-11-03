@@ -213,9 +213,7 @@ export default function MatrixHills() {
     const sceneContext = scene.getContext('2d')
     const floor = document.createElement('canvas')
     const floorContext = floor.getContext('2d')
-    const mask = document.createElement('canvas')
-    const maskContext = mask.getContext('2d')
-    if (!canvas || !context || !bufferContext || !sceneContext || !floorContext || !maskContext) return undefined
+    if (!canvas || !context || !bufferContext || !sceneContext || !floorContext) return undefined
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let width = 0
@@ -230,6 +228,7 @@ export default function MatrixHills() {
     let heads = new Float32Array(0)
     let speeds = new Float32Array(0)
     let horizon = 0
+    let horizonRow = 0
     let floorHeight = 0
     let floorDepth = 0
     let objectScale = 0
@@ -259,22 +258,6 @@ export default function MatrixHills() {
       speeds[column] = minSpeed + Math.random() * (maxSpeed - minSpeed)
     }
 
-    const buildMask = () => {
-      maskContext.setTransform(ratio, 0, 0, ratio, 0, 0)
-      maskContext.clearRect(0, 0, width, floorDepth)
-      const radius = Math.min(width * 0.46, 760)
-      maskContext.save()
-      maskContext.translate(width / 2, 0)
-      maskContext.scale(1, floorDepth / radius)
-      const gradient = maskContext.createRadialGradient(0, 0, 0, 0, 0, radius)
-      gradient.addColorStop(0, 'rgba(0, 0, 0, 1)')
-      gradient.addColorStop(0.55, 'rgba(0, 0, 0, 0.85)')
-      gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
-      maskContext.fillStyle = gradient
-      maskContext.fillRect(-radius, 0, radius * 2, radius)
-      maskContext.restore()
-    }
-
     const build = () => {
       ratio = Math.min(window.devicePixelRatio || 1, 1.5)
       width = canvas.clientWidth
@@ -287,14 +270,14 @@ export default function MatrixHills() {
       prepare(bufferContext, ratio)
       prepare(sceneContext, ratio)
 
-      floorHeight = clamp(width * 0.1, 110, 180)
+      floorHeight = clamp(width * 0.06, 70, 120)
       objectScale = clamp(width * 0.12, 130, 230) / solidHeight
       horizon = heroHeight - (slant * width) / 2 - floorHeight
-      floorDepth = Math.max(1, Math.min(height - horizon, floorHeight + (slant * width) / 2 + 60))
-      floor.width = mask.width = Math.round(width * ratio)
-      floor.height = mask.height = Math.round(floorDepth * ratio)
+      horizonRow = Math.ceil(horizon / cell)
+      floorDepth = Math.max(1, height - horizon)
+      floor.width = Math.round(width * ratio)
+      floor.height = Math.round(floorDepth * ratio)
       floorContext.setTransform(ratio, 0, 0, ratio, 0, 0)
-      buildMask()
 
       cols = Math.ceil(width / cell)
       rows = Math.ceil(height / cell)
@@ -314,7 +297,7 @@ export default function MatrixHills() {
       for (let column = 0; column < cols; column += 1) {
         starts[column] = Math.min(...tops.map((top) => top[column]))
 
-        for (let row = starts[column]; row < rows; row += 1) {
+        for (let row = starts[column]; row < horizonRow; row += 1) {
           let layer = -1
           for (let index = 0; index < ridges.length; index += 1) {
             if (row >= tops[index][column]) layer = index
@@ -435,10 +418,9 @@ export default function MatrixHills() {
     }
 
     const drawReflection = () => {
-      floorContext.globalCompositeOperation = 'source-over'
       floorContext.clearRect(0, 0, width, floorDepth)
-      const step = 2
-      for (let offset = 0; offset < floorDepth; offset += step) {
+      for (let offset = 0, step = 2; offset < floorDepth; offset += step) {
+        step = offset < floorHeight * 2 ? 2 : 4
         const depth = Math.min(1, offset / floorHeight)
         const source = horizon - offset * (0.85 - 0.25 * depth)
         const sourceHeight = step * (0.85 - 0.5 * depth)
@@ -456,9 +438,6 @@ export default function MatrixHills() {
           step,
         )
       }
-      floorContext.globalCompositeOperation = 'destination-in'
-      floorContext.drawImage(mask, 0, 0, width, floorDepth)
-      floorContext.globalCompositeOperation = 'source-over'
     }
 
     const render = (time: number, animate: boolean) => {
@@ -470,9 +449,7 @@ export default function MatrixHills() {
 
       context.clearRect(0, 0, width, height)
       context.drawImage(scene, 0, 0, width, height)
-      context.globalCompositeOperation = 'destination-out'
-      context.drawImage(mask, 0, horizon, width, floorDepth)
-      context.globalCompositeOperation = 'source-over'
+      context.clearRect(0, horizon, width, floorDepth)
       context.globalAlpha = reflectionAlpha
       context.drawImage(floor, 0, horizon, width, floorDepth)
       context.globalAlpha = 1
@@ -484,7 +461,7 @@ export default function MatrixHills() {
         heads[column] += speeds[column]
         const row = Math.floor(heads[column])
         if (row !== previous && row >= 0 && row < rows) mutate(column * rows + row)
-        if (heads[column] - trail > rows) resetHead(column)
+        if (heads[column] - trail > horizonRow) resetHead(column)
       }
 
       const mutations = Math.ceil(field.length * mutationRate)

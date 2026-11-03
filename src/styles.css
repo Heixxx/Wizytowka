@@ -436,7 +436,7 @@ main {
   align-items: center;
   min-height: 100vh;
   min-height: 100svh;
-  padding: 132px 0 calc(tan(3.5deg) * 50vw + clamp(110px, 10vw, 180px) + clamp(130px, 12vw, 230px) + 24px);
+  padding: 132px 0 calc(tan(3.5deg) * 50vw + clamp(70px, 6vw, 120px) + clamp(130px, 12vw, 230px) + 24px);
 }
 
 .hero::after {
