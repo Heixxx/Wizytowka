@@ -4,7 +4,7 @@ const glyphs = 'アイウエオカキクケコサシスセソタチツテトナ�
 const cell = 14
 const fps = 30
 const trail = 16
-const mutationRate = 0.04
+const mutationRate = 0.004
 const color = 'rgb(74, 123, 255)'
 const headColor = 'rgb(214, 228, 255)'
 const font = `${cell - 3}px 'IBM Plex Mono', ui-monospace, monospace`
@@ -58,7 +58,7 @@ export default function MatrixFrame() {
 
       const comets = Math.max(3, Math.round(path.length / 45))
       heads = Float32Array.from({ length: comets }, (_, index) => (index / comets) * path.length)
-      speeds = Float32Array.from({ length: comets }, () => 0.35 + Math.random() * 0.35)
+      speeds = Float32Array.from({ length: comets }, () => 0.035 + Math.random() * 0.035)
     }
 
     const render = () => {
