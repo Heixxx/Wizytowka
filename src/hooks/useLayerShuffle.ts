@@ -38,12 +38,14 @@ export function useLayerShuffle() {
 
           if (!wide) return
 
-          gsap.to(previous, {
-            '--dim': 0.65,
-            scale: 0.955,
-            ease: 'none',
-            scrollTrigger: { trigger: layer, start: 'top 75%', end: 'top top', scrub: 0.7 },
-          })
+          const trigger = { trigger: layer, start: 'top 75%', end: 'top top', scrub: 0.7 }
+
+          gsap.to(previous, { '--dim': 0.65, ease: 'none', scrollTrigger: trigger })
+
+          const content = previous.querySelector<HTMLElement>(':scope > .container')
+          if (content) {
+            gsap.to(content, { scale: 0.955, transformOrigin: '50% 100%', ease: 'none', scrollTrigger: { ...trigger } })
+          }
         })
 
         ScrollTrigger.refresh()

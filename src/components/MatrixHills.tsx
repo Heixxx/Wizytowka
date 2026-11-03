@@ -113,10 +113,10 @@ export default function MatrixHills() {
     }
 
     const build = () => {
-      const rect = canvas.getBoundingClientRect()
       const ratio = Math.min(window.devicePixelRatio || 1, 1.5)
-      width = rect.width
-      height = rect.height
+      width = canvas.clientWidth
+      height = canvas.clientHeight
+      const hillRows = Math.ceil((canvas.parentElement?.clientHeight ?? height) / cell)
       canvas.width = buffer.width = Math.round(width * ratio)
       canvas.height = buffer.height = Math.round(height * ratio)
       prepare(context, ratio)
@@ -133,7 +133,7 @@ export default function MatrixHills() {
 
       const tops = ridges.map((ridge) =>
         Int16Array.from({ length: cols }, (_, column) =>
-          Math.max(0, Math.round(ridgeAt(ridge, (column * cell) / span) * rows)),
+          Math.max(0, Math.round(ridgeAt(ridge, (column * cell) / span) * hillRows)),
         ),
       )
 
