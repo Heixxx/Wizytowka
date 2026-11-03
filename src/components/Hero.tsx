@@ -1,8 +1,6 @@
 import { profile } from '../content.ts'
 import BusinessCard from './BusinessCard.tsx'
-import HeroWindows from './HeroWindows.tsx'
 import MatrixHills from './MatrixHills.tsx'
-import MatrixStage from './MatrixStage.tsx'
 
 export default function Hero() {
   const lines = profile.name.split(' ').filter(Boolean)
@@ -10,8 +8,6 @@ export default function Hero() {
   return (
     <section className="hero" id="start" data-layer>
       <MatrixHills />
-      <MatrixStage />
-      <HeroWindows />
       <div className="container hero__grid">
         <div className="hero__copy">
           <h1 className="hero__name" data-aos="fade-up">
